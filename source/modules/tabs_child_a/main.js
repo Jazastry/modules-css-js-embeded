@@ -48,7 +48,12 @@ TabsModuleA.prototype.createPrependTabLabels = function() {
 
 // called on label click
 TabsModuleA.prototype.changeTab = function(label) {
-   var _this = this;
+    var _this = this;
+
+    if(_this.currentTabModule.disconnect){
+        console.log('TBAS A - disconnect');
+        _this.currentTabModule.disconnect();
+    }
 
     // remove currentTabModule HTML parent-element content
     $(_this.parentElement).children('.tab.active').unbind();
@@ -77,7 +82,7 @@ TabsModuleA.prototype.createAppendTabChildrenModule = function() {
     _this.moduleParentElement = $(_this.tabChildren[_this.activeTabIndex])[0];
     moduleFactory(_this.moduleParentElement, function(module){
         _this.currentTabModule = module;
-        console.log('_this.currentTabModule ' , _this.currentTabModule);
+
     });
 };
 
@@ -86,4 +91,20 @@ TabsModuleA.prototype.showCurrentModuleAndLabel = function() {
 
     $(_this.moduleParentElement).addClass('active');
     $(_this.parentElement).find('.tab_label[moduleindex="' + _this.activeTabIndex + '"]').addClass('active');
+};
+
+TabsModuleA.prototype.remove = function() {
+    var _this = this;
+
+    // remove currentTabModule refferences
+    _this.currentTabModule.remove();
+    $(_this.currentTabModule.parentElement).children().remove();
+    removeObject(_this.currentTabModule);
+
+    // remove parent element all children 
+   $(_this.parentElement).children().remove();
+
+    // remove this  
+    removeObject(this);
+    removeObject(_this);
 };

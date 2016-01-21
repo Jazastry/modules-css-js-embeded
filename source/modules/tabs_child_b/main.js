@@ -74,7 +74,7 @@ TabsModuleB.prototype.createAppendTabChildrenModule = function() {
     _this.moduleParentElement = $(_this.tabChildren[_this.activeTabIndex])[0];
     moduleFactory(_this.moduleParentElement, function(module) {
         _this.currentTabModule = module;
-        console.log('_this.currentTabModule ', _this.currentTabModule);
+
     });
 };
 
@@ -83,4 +83,20 @@ TabsModuleB.prototype.showCurrentModuleAndLabel = function() {
 
     $(_this.moduleParentElement).addClass('active');
     $(_this.parentElement).find('.tab_label[moduleindex="' + _this.activeTabIndex + '"]').addClass('active');
+};
+
+TabsModuleB.prototype.remove = function() {
+    var _this = this;
+
+    // remove currentTabModule refferences
+    _this.currentTabModule.remove();
+    $(_this.currentTabModule.parentElement).children().remove();
+    removeObject(_this.currentTabModule);
+
+    // remove parent element all children 
+   $(_this.parentElement).children().remove();
+
+    // remove this  
+    removeObject(this);
+    removeObject(_this);
 };

@@ -33,6 +33,7 @@ var infoChannelService = (function(){
 		for (var i = 0; i < listeners.length; i++) {
 			if( listeners[ i ].listener === listener ) {
 		    listeners.splice( i, 1 );
+		    console.log("infoChannel : disconnected - ", listener);
 		    return true;
 		  }
 		}		 
@@ -43,6 +44,7 @@ var infoChannelService = (function(){
 	InfoChannelService.prototype.broadcast = function(chanelName, info) {
 		var _this = this;
 		var listeners = _this.channels[chanelName].listeners;
+		console.log('listeners ' , listeners);
 		
 		for (var i = 0; i < listeners.length; i++) {
 			listeners[i].callback(info, chanelName);

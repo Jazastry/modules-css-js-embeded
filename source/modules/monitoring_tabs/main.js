@@ -20,13 +20,18 @@ MonitoringTabsModule.prototype.prepare = function() {
 
 MonitoringTabsModule.prototype.remove = function() {
     var _this = this;
-    $(_this.parentElement).unbind();
-    $(_this.parentElement).remove();
-    $(_this.parentElement).find("*").addBack().unbind();
-    $(_this.parentElement).find("*").addBack().remove();
 
+    // call current module remove function
+    _this.currentTabModule.remove();
+
+    // unbind all attached events and remove all HTML elements
+    $(_this.parentElement).children().unbind();
+    $(_this.parentElement).children().remove();
+    $(_this.parentElement).children().find("*").addBack().unbind();
+    $(_this.parentElement).children().find("*").addBack().remove();
+
+    // remove all function instances
     removeObject(_this);
-    removeObject(this);
 };
 
 MonitoringTabsModule.prototype.loadEvents = function() {
@@ -68,7 +73,8 @@ MonitoringTabsModule.prototype.addMonitoringModule = function(channelName) {
     // load module html
     $.get(modulePath + 'index.html', function(htmlData) {
         $(module.parentElement).append(htmlData);
-        module.loadModule();
+        module.loadEvents();
+        module.loadChannelInfo();
     });
 
     $(_this.parentElement).find('div[module="monitoring"]').last().after(monitoringParent);

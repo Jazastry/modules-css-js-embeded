@@ -1,6 +1,5 @@
 @import url('./lib/node_modules/bootstrap/dist/css/bootstrap.css');
 @import url('./lib/bootstrap-xl/bootstrap-xl.css');
-
 body {
     background-color: #000;
     color: #FFF;
@@ -42,7 +41,9 @@ body {
     padding: 20px;
 }
 
+
 /* tabs */
+
 .tabs_container {
     position: relative;
     padding-top: 20px;

@@ -13,7 +13,6 @@ var moduleFactory = function(moduleParentElement, callback) {
         // module factory
         switch (moduleName) {
             case 'hello':
-                module = new HelloModule(moduleParentElement);
                 break;
             case 'monitoring':
                 module = new MonitoringModule(moduleParentElement);
@@ -45,12 +44,14 @@ var moduleFactory = function(moduleParentElement, callback) {
 
 // object and properties removal 
 var removeObject = function(obj) {
-    for (var member in obj) {
+
+    for (var member in obj) {        
         // preserve channel value from deletion
         if (member !== 'channel') {
             delete obj[member];
         }
     }
+
     obj = null;
 };
 
@@ -63,4 +64,5 @@ var renderOneLevelModules = function(moduleParentElement) {
     }
 };
 
+// select main modules container and pass it to render function
 renderOneLevelModules($('body>.container'));
